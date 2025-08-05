@@ -1,0 +1,12 @@
+.register-card {
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+input::placeholder {
+    color: #aaa;
+}
+
+h2 {
+    font-weight: bold;
+}
