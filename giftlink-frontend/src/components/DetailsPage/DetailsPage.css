@@ -1,36 +1,51 @@
 /* Style for image placeholder */
 .image-placeholder-large {
-    /* Task 1 styling */
-    {{insert code here}}
+    width: 100%;           /* ancho completo */
+    height: 400px;         /* altura fija */
+    position: relative;    /* para posicionar hijos si es necesario */
+    background-color: #f0f0f0;  /* fondo gris claro para marcador */
 }
 
 /* Style for product image */
 .product-image-large {
-    /* Task 2 styling */
-    {{insert code here}}
+    width: 100%;           /* ancho completo */
+    height: 100%;          /* altura completa del contenedor */
+    object-fit: cover;     /* cubre el área sin distorsionar */
 }
 
 /* Style for 'no image available' placeholder */
 .no-image-available-large {
-    /* Task 3 styling */
-    {{insert code here}}
+    display: flex;                    /* para centrar contenido */
+    justify-content: center;          /* horizontal */
+    align-items: center;              /* vertical */
+    height: 100%;                    /* llena el contenedor */
+    background-color: #e0e0e0;        /* fondo gris suave */
+    color: #999;                      /* color de texto tenue */
+    font-style: italic;               /* cursiva para el texto */
+    font-size: 1.5rem;                /* tamaño de fuente legible */
 }
 
 /* Style for card header */
 .card-header {
-    /* Task 4 styling */
-    {{insert code here}}
+    background-color: #007bff;   /* azul Bootstrap primario */
+    color: white;                /* texto blanco para contraste */
+    padding: 1rem;
+    border-top-left-radius: 0.25rem;
+    border-top-right-radius: 0.25rem;
 }
 
 /* Style for details title */
 .details-title {
-    /* Task 5 styling */
-    {{insert code here}}
+    font-size: 2rem;
+    font-weight: bold;
+    color: #fff;
+    margin: 0;
 }
 
 /* Style for comments section */
 .comments-section {
-    /* Task 6 styling */
-    {{insert code here}}
+    margin-top: 2rem;
+    padding: 1rem;
+    background-color: #f8f9fa;  /* fondo claro para diferenciar */
+    border-radius: 0.25rem;
 }
-
