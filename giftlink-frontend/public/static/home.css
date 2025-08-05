@@ -1,19 +1,45 @@
 /* Task 1: Style the body */
 body {
-    /* insert code here */
+    margin: 0;
+    padding: 0;
+    font-family: 'Montserrat', sans-serif;
+    position: relative;
+    min-height: 100vh;
+    overflow: hidden;
 }
 
 /* Task 2: Create a pseudo-element for the background and blur */
 body::before {
-    /* insert code here */
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-image: url('https://images.unsplash.com/photo-1603575448364-3282c55a93e8?auto=format&fit=crop&w=1350&q=80');
+    background-size: cover;
+    background-position: center;
+    filter: blur(8px);
+    z-index: -1;
 }
 
 /* Task 3: Style the content area */
-.content {
-    /* insert code here */
+.container {
+    position: relative;
+    z-index: 1;
+    color: white;
+    padding: 2rem;
+    border-radius: 10px;
+    background-color: rgba(0, 0, 0, 0.4);
 }
 
 /* Task 4: Add styles for headings, paragraphs, and buttons */
 h1, h2, .lead, .btn-primary {
-    /* insert code here */
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.8);
+}
+
+.btn-primary {
+    padding: 0.6rem 1.2rem;
+    font-size: 1.1rem;
+    border-radius: 5px;
 }
