@@ -1,15 +1,57 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './LoginPage.css';
+import urlConfig from '../config'; // Task 1
+import { useAppContext } from '../../context/AuthContext'; // Task 2
+import { useNavigate } from 'react-router-dom'; // Task 3
 
 function LoginPage() {
-    // Estados del formulario
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [incorrect, setIncorrect] = useState(''); // Task 4
 
-    // Función de login (por ahora solo muestra en consola)
+    const navigate = useNavigate(); // Task 5
+    const bearerToken = sessionStorage.getItem('auth-token'); // Task 5
+    const { setIsLoggedIn } = useAppContext(); // Task 5
+
+    useEffect(() => {
+        // Task 6: Si ya está logueado, redirige
+        if (bearerToken) {
+            navigate('/app');
+        }
+    }, [bearerToken, navigate]);
+
     const handleLogin = async () => {
-        console.log("Dentro de handleLogin");
-        console.log({ email, password });
+        try {
+            const response = await fetch(`${urlConfig.baseUrl}/api/auth/login`, {
+                method: 'POST', // Task 7
+                headers: { // Task 8
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ email, password }), // Task 9
+            });
+
+            const json = await response.json();
+
+            if (json.authtoken) {
+                sessionStorage.setItem('auth-token', json.authtoken);
+                sessionStorage.setItem('name', json.userName);
+                sessionStorage.setItem('email', json.userEmail);
+                setIsLoggedIn(true);
+                navigate('/app');
+            } else {
+                document.getElementById("email").value = "";
+                document.getElementById("password").value = "";
+                setIncorrect("Contraseña incorrecta. Intenta de nuevo.");
+
+                setTimeout(() => {
+                    setIncorrect("");
+                }, 2000);
+            }
+
+        } catch (e) {
+            console.log("Error fetching details: " + e.message);
+            setIncorrect("Error al conectar con el servidor.");
+        }
     };
 
     return (
@@ -46,6 +88,12 @@ function LoginPage() {
                         <button className="btn btn-primary w-100 mb-3" onClick={handleLogin}>
                             Iniciar sesión
                         </button>
+
+                        {incorrect && (
+                            <span style={{ color: 'red', height: '.5cm', display: 'block', fontStyle: 'italic', fontSize: '12px' }}>
+                                {incorrect}
+                            </span>
+                        )}
 
                         <p className="mt-4 text-center">
                             ¿Nuevo aquí? <a href="/app/register" className="text-primary">Regístrate aquí</a>
