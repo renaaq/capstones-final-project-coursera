@@ -1,23 +1,79 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { urlConfig } from '../../config';
+import { useAppContext } from '../../context/AuthContext';
 
-function NavBar() {
-  return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-light">
-      <div className="container">
-        <Link className="navbar-brand" to="/">GiftLink</Link>
-        <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-          <li className="nav-item">
-            <Link className="nav-link" to="/app/gifts">Gifts</Link>
-          </li>
-          <li className="nav-item">
-            <Link className="nav-link" to="/app/search">Search</Link>
-          </li>
-          {/* otros links */}
-        </ul>
-      </div>
-    </nav>
-  );
+export default function Navbar() {
+    const { isLoggedIn, setIsLoggedIn, userName, setUserName } = useAppContext();
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        const authTokenFromSession = sessionStorage.getItem('auth-token');
+        const nameFromSession = sessionStorage.getItem('name');
+
+        if (authTokenFromSession && nameFromSession) {
+            setUserName(nameFromSession);
+            setIsLoggedIn(true);
+        } else {
+            setIsLoggedIn(false);
+        }
+    }, [setIsLoggedIn, setUserName]);
+
+    const handleLogout = () => {
+        sessionStorage.removeItem('auth-token');
+        sessionStorage.removeItem('name');
+        sessionStorage.removeItem('email');
+        setIsLoggedIn(false);
+        navigate(`/app`);
+    };
+
+    const profileSection = () => {
+        navigate(`/app/profile`);
+    };
+
+    return (
+        <nav className="navbar navbar-expand-lg navbar-light bg-light" id='navbar_container'>
+            <a className="navbar-brand" href={`${urlConfig.backendUrl}/app`}>GiftLink</a>
+            <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span className="navbar-toggler-icon"></span>
+            </button>
+
+            <div className="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <ul className="navbar-nav">
+                    <li className="nav-item">
+                        <a className="nav-link" href="/home.html">Home</a>
+                    </li>
+                    <li className="nav-item">
+                        <Link className="nav-link" to="/app">Gifts</Link>
+                    </li>
+                    <li className="nav-item">
+                        <Link className="nav-link" to="/app/search">Search</Link>
+                    </li>
+
+                    {isLoggedIn ? (
+                        <>
+                            <li className="nav-item">
+                                <span className="nav-link" style={{ color: "black", cursor: "pointer" }} onClick={profileSection}>
+                                    Welcome, {userName}
+                                </span>
+                            </li>
+                            <li className="nav-item">
+                                <button className="nav-link login-btn btn btn-link" onClick={handleLogout}>Logout</button>
+                            </li>
+                        </>
+                    ) : (
+                        <>
+                            <li className="nav-item">
+                                <Link className="nav-link login-btn" to="/app/login">Login</Link>
+                            </li>
+                            <li className="nav-item">
+                                <Link className="nav-link register-btn" to="/app/register">Register</Link>
+                            </li>
+                        </>
+                    )}
+                </ul>
+            </div>
+        </nav>
+    );
 }
-
-export default NavBar;
