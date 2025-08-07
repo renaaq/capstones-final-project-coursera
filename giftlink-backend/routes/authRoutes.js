@@ -5,6 +5,7 @@ const jwt = require('jsonwebtoken');
 const connectToDatabase = require('../models/db');
 const dotenv = require('dotenv');
 const pino = require('pino');
+const { body, validationResult } = require('express-validator'); // Import para validación
 
 dotenv.config();
 const logger = pino();
@@ -93,5 +94,51 @@ router.post('/login', async (req, res) => {
     res.status(500).send('Internal server error');
   }
 });
+
+// Endpoint /update
+router.put('/update', 
+  // Validación: aquí agregas campos que quieras validar, por ejemplo userName no vacío
+  body('userName', 'El nombre no puede estar vacío').notEmpty(),
+  async (req, res) => {
+    // Validar inputs
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+
+    try {
+      const userEmail = req.header('email');
+      if (!userEmail) {
+        return res.status(400).json({ error: 'El correo electrónico es obligatorio en los headers.' });
+      }
+
+      const db = await connectToDatabase();
+      const collection = db.collection('users');
+
+      // Buscar usuario por email
+      const existingUser = await collection.findOne({ email: userEmail });
+      if (!existingUser) {
+        return res.status(404).json({ error: 'Usuario no encontrado.' });
+      }
+
+      const { userName } = req.body;
+
+      // Actualizar datos
+      await collection.updateOne(
+        { email: userEmail },
+        { $set: { firstName: userName, updatedAt: new Date() } }
+      );
+
+      // Crear nuevo token JWT
+      const payload = { user: { id: existingUser._id.toString() } };
+      const authtoken = jwt.sign(payload, JWT_SECRET, { expiresIn: '1h' });
+
+      res.json({ authtoken });
+    } catch (e) {
+      logger.error('Internal server error', e);
+      res.status(500).send('Internal server error');
+    }
+  }
+);
 
 module.exports = router;
