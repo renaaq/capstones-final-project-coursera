@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './LoginPage.css';
-import config from '../../config';   // FIXED: Use default export and correct path
+import config from '../../config.js';   // FIXED: Use default export and correct path
 import { useAppContext } from '../../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 
