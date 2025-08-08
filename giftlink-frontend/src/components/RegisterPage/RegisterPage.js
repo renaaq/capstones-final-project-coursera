@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import config from '../config.js';  // Task 1: importar urlConfig
+import config from '../../config.js'  // Task 1: importar urlConfig
 import { useAppContext } from '../../context/AuthContext'; // Task 2: importar useAppContext
 import { useNavigate } from 'react-router-dom'; // Task 3: importar useNavigate
 import './RegisterPage.css';
@@ -20,7 +20,7 @@ function RegisterPage() {
 
     const handleRegister = async () => {
         try {
-            const response = await fetch(`${urlConfig.backendUrl}/api/auth/register`, {
+            const response = await fetch(`${config.baseUrl}/api/auth/register`, {
                 method: 'POST', // Task 6: método POST
                 headers: {
                     'content-type': 'application/json', // Task 7: encabezados

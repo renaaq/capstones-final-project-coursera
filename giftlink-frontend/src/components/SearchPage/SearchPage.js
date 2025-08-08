@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import config from '../config.js'
+import config from '../../config.js'
 
 function SearchPage() {
 
@@ -19,7 +19,7 @@ function SearchPage() {
     useEffect(() => {
         const fetchProducts = async () => {
             try {
-                let url = `${urlConfig.backendUrl}/api/gifts`;
+                let url = `${config.baseUrl}/api/gifts`;
                 console.log("Fetching all gifts from: ", url);
                 const response = await fetch(url);
                 if (!response.ok) {
@@ -37,7 +37,7 @@ function SearchPage() {
 
     // Task 2: Fetch search results based on filters
     const handleSearch = async () => {
-        const baseUrl = `${urlConfig.backendUrl}/api/search?`;
+        const baseUrl = `${config.baseUrl}/api/search?`;
         const queryParams = new URLSearchParams({
             name: searchQuery,
             age_years: ageRange,

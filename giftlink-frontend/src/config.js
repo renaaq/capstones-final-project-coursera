@@ -1,7 +1,7 @@
 const config = {
-  baseUrl: process.env.REACT_APP_BACKEND_URL,
+  backendUrl: process.env.REACT_APP_BACKEND_URL,
 };
 
-console.log(`baseUrl in config.js: ${config.baseUrl}`);
+console.log(`backendUrl in config.js: ${config.backendUrl}`);
 
 export default config;

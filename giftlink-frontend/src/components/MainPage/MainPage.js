@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import config from '../config.js'
+import config from '../../config.js'
 
 function MainPage() {
     const [gifts, setGifts] = useState([]);
@@ -10,7 +10,7 @@ function MainPage() {
         // Task 1: Write async fetch operation
         const fetchGifts = async () => {
             try {
-                const response = await fetch(`${urlConfig.backendUrl}/api/gifts`);
+                const response = await fetch(`${config.baseUrl}/api/gifts`);
                 if (!response.ok) throw new Error(`HTTP error: ${response.status}`);
                 const data = await response.json();
                 setGifts(data);

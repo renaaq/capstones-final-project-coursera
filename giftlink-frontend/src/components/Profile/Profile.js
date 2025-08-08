@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import './Profile.css'
-import config from '../config.js'
+import config from '../../config.js'
 import { useAppContext } from '../../context/AuthContext';
 
 const Profile = () => {
@@ -66,7 +66,7 @@ const Profile = () => {
 
       const payload = { name: updatedDetails.name };
 
-      const response = await fetch(`${urlConfig.backendUrl}/api/auth/update`, {
+      const response = await fetch(`${config.baseUrl}/api/auth/update`, {
         method: 'PUT',
         headers: {
           "Authorization": `Bearer ${authtoken}`,
