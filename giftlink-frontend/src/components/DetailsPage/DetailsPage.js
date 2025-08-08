@@ -117,3 +117,5 @@ return (
 }
 
 export default DetailsPage;
+
+//ss
