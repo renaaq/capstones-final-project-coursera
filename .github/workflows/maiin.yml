@@ -1,0 +1,51 @@
+name: 'CI/CD'
+
+on:
+  push:
+    branches: [master, main]
+  pull_request:
+    branches: [master, main]
+
+jobs:
+  lint_js:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Install Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 14
+
+      - name: Install JSHint
+        run: npm install -g jshint
+
+      - name: Run Linter
+        run: |
+          jshint ./giftlink-backend/app.js
+          jshint ./giftlink-backend/auth.js
+          jshint ./giftlink-backend/routes/giftRoutes.js
+          jshint ./giftlink-backend/routes/searchRoutes.js
+          echo "Linted all the js files successfully"
+
+  client_build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Install Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 14
+
+      - name: Set environment variable for build
+        run: echo "REACT_APP_BACKEND_URL=https://tu-backend-url.com" >> $GITHUB_ENV
+
+      - name: Run build
+        run: |
+          cd giftlink-frontend
+          npm install
+          npm run build
+          echo "Client-side build successfully"
