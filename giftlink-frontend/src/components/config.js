@@ -1,5 +1,7 @@
-const urlConfig = {
-  baseUrl: "http://localhost:3060" // Cambia esto a la URL correcta de tu backend
+const config = {
+  backendUrl: process.env.REACT_APP_BACKEND_URL,
 };
 
-export default urlConfig;
+console.log(`backendUrl in config.js: ${config.backendUrl}`);
+
+export default config;

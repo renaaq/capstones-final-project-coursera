@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './LoginPage.css';
-import urlConfig from '../../config';  // Task 1
+import urlConfig from '../../config';   // Task 1
 import { useAppContext } from '../../context/AuthContext'; // Task 2
 import { useNavigate } from 'react-router-dom'; // Task 3
 
