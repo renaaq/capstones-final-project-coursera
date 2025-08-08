@@ -10,36 +10,31 @@ function DetailsPage() {
     const [error, setError] = useState(null);
 
 	useEffect(() => {
-        const authenticationToken = sessionStorage.getItem('auth-token');
-        if (!authenticationToken) {
-			// Task 1: Check for authentication and redirect
-            navigate('/app/login');
-            return;
-        }
+    const authenticationToken = sessionStorage.getItem('auth-token');
+    if (!authenticationToken) {
+        navigate('/app/login');
+        return;
+    }
 
-        // get the gift to be rendered on the details page
-        const fetchGift = async () => {
-            try {
-				// Task 2: Fetch gift details
-                const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/gifts/${productId}`);
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                const data = await response.json();
-                setGift(data);
-            } catch (error) {
-                setError(error.message);
-            } finally {
-                setLoading(false);
+    const fetchGift = async () => {
+        try {
+            const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/gifts/${productId}`);
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
             }
-        };
+            const data = await response.json();
+            setGift(data);
+        } catch (error) {
+            setError(error.message);
+        } finally {
+            setLoading(false);
+        }
+    };
 
-        fetchGift();
+    fetchGift();
+    window.scrollTo(0, 0);
 
-		// Task 3: Scroll to top on component mount
-		window.scrollTo(0, 0);
-
-    }, [productId]);
+}, [productId, navigate]);
 
 
     const handleBackClick = () => {
@@ -118,4 +113,4 @@ return (
 
 export default DetailsPage;
 
-//ss
+//sss
