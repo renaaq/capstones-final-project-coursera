@@ -1,20 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import './LoginPage.css';
-import { urlConfig } from '../../config';   // Task 1
-import { useAppContext } from '../../context/AuthContext'; // Task 2
-import { useNavigate } from 'react-router-dom'; // Task 3
+import config from '../../config';   // FIXED: Use default export and correct path
+import { useAppContext } from '../../context/AuthContext';
+import { useNavigate } from 'react-router-dom';
 
 function LoginPage() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [incorrect, setIncorrect] = useState(''); // Task 4
+    const [incorrect, setIncorrect] = useState('');
 
-    const navigate = useNavigate(); // Task 5
-    const bearerToken = sessionStorage.getItem('auth-token'); // Task 5
-    const { setIsLoggedIn } = useAppContext(); // Task 5
+    const navigate = useNavigate();
+    const bearerToken = sessionStorage.getItem('auth-token');
+    const { setIsLoggedIn } = useAppContext();
 
     useEffect(() => {
-        // Task 6: Si ya está logueado, redirige
         if (bearerToken) {
             navigate('/app');
         }
@@ -23,11 +22,11 @@ function LoginPage() {
     const handleLogin = async () => {
         try {
             const response = await fetch(`${config.baseUrl}/api/auth/login`, {
-                method: 'POST', // Task 7
-                headers: { // Task 8
+                method: 'POST',
+                headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ email, password }), // Task 9
+                body: JSON.stringify({ email, password }),
             });
 
             const json = await response.json();
