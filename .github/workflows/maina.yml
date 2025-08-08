@@ -38,7 +38,7 @@ jobs:
       - name: Install Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 14
+          node-version: 18
 
       - name: Run build
         run: |
@@ -47,4 +47,6 @@ jobs:
           npm run build
           echo "Client-side build successfully"
         env:
-          BASE_URL: "https://tu-servidor-real.com"
+          REACT_APP_BACKEND_URL: "http://localhost:3060"
+
+
