@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './LoginPage.css';
-import urlConfig from '../../config';   // Task 1
+import config from '../../config';   // Task 1
 import { useAppContext } from '../../context/AuthContext'; // Task 2
 import { useNavigate } from 'react-router-dom'; // Task 3
 
@@ -22,7 +22,7 @@ function LoginPage() {
 
     const handleLogin = async () => {
         try {
-            const response = await fetch(`${urlConfig.baseUrl}/api/auth/login`, {
+            const response = await fetch(`${config.baseUrl}/api/auth/login`, {
                 method: 'POST', // Task 7
                 headers: { // Task 8
                     'Content-Type': 'application/json',
