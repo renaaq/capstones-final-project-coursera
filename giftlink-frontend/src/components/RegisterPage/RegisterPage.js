@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { urlConfig } from '../../config';  // Task 1: importar urlConfig
+import config from '../config.js';  // Task 1: importar urlConfig
 import { useAppContext } from '../../context/AuthContext'; // Task 2: importar useAppContext
 import { useNavigate } from 'react-router-dom'; // Task 3: importar useNavigate
 import './RegisterPage.css';

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { urlConfig } from '../../config';
+import config from '../config.js'
 
 function SearchPage() {
 
